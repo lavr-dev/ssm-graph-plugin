@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="d3.v7.min.js"></script>
+    <script src="graphviz.umd.js"></script>
+    <script src="d3-graphviz.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #graph {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div id="graph"></div>
+<script>
+    let graphviz = d3.select("#graph").graphviz()
+        .on("initEnd", () => {
+            console.log("WASM Loaded");
+        });
+
+    function updateGraph(dotDataBase64) {
+        try {
+            const dotData = atob(dotDataBase64);
+            graphviz
+                .transition(() => d3.transition().duration(500))
+                .renderDot(dotData);
+        } catch (e) {
+            console.error("Render error:", e);
+        }
+    }
+</script>
+</body>
+</html>

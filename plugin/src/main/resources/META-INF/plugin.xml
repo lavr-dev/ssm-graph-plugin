@@ -1,0 +1,41 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.lavr.ssm-graph-plugin</id>
+
+    <name>SSM Graph</name>
+
+    <vendor email="arzamasru@gmail.com" url="https://github.com/lavr-dev">Kirill Lavrov</vendor>
+
+    <description>
+        <![CDATA[
+    <h3>Spring State Machine Visualizer</h3>
+    <p>Streamline your development process by visualizing complex <b>Spring State Machine</b> configurations directly within your IDE. This plugin provides a clear, graphical representation of your state machine logic.</p>
+
+    <ul>
+      <li><b>Interactive Graph Visualization:</b> Automatically renders states and transitions into an intuitive visual map, making it easier to grasp complex business flows at a glance.</li>
+      <li><b>Advanced Toolset:</b> Utilize a dedicated UI panel with specialized tools designed to enhance graph readability, allowing you to inspect, organize, and analyze your state machine structure more effectively.</li>
+    </ul>
+
+    <p>Stop tracing transitions manually in your code and let the visualizer provide the clarity you need to debug and develop faster.</p>
+  ]]>
+    </description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+                id="SSM Graph"
+                anchor="right"
+                icon="/icons/ssm-graph-icon.svg"
+                factoryClass="com.lavr.ssmgraph.ui.SSMGraphToolWindowFactory"
+                canCloseContents="true"/>
+
+        <runConfigurationExtension implementation="com.lavr.ssmgraph.run.SSMRunConfigurationExtension"/>
+        <fileEditorProvider implementation="com.lavr.ssmgraph.editor.DotSplitEditorProvider"/>
+    </extensions>
+</idea-plugin>
