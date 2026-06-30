@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="d3.v7.min.js"></script>
+    <script src="graphviz.umd.js"></script>
+    <script src="d3-graphviz.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #graph {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div id="graph"></div>
+<script>
+    let globalGraphviz = null;
+
+    function updateGraph(dotDataBase64) {
+        try {
+            const dotData = atob(dotDataBase64);
+            const container = d3.select("#graph");
+
+            if (globalGraphviz) {
+                globalGraphviz.destroy();
+                globalGraphviz = null;
+            }
+            container.selectAll("*").remove();
+
+            globalGraphviz = container.graphviz();
+            globalGraphviz.renderDot(dotData);
+        } catch (error) {
+            console.error("Error updating graph:", error);
+        }
+    }
+</script>
+</body>
+</html>
