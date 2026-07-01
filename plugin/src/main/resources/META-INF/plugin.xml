@@ -1,0 +1,61 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <id>com.lavr.ssm-graph-plugin</id>
+
+    <name>SSM Graph</name>
+
+    <vendor email="arzamasru@gmail.com" url="https://github.com/lavr-dev">Kirill Lavrov</vendor>
+
+    <description>
+        <![CDATA[
+   <h1>Spring State Machine Graph</h1>
+
+<p>
+    Streamline your development process by visualizing complex <b>Spring State Machine (SSM)</b> configurations directly within your IDE.
+    This plugin provides a clear, graphical representation of your state machine logic, eliminating the need to manually trace transitions through lines of code.
+</p>
+
+<h3>Runtime Visualization (Java Agent)</h3>
+<p>
+    Unlike traditional tools that rely on static code analysis, this plugin utilizes a <b>Java Agent</b> to capture the actual creation of State Machines during runtime.
+    This ensures that the visualization reflects the <i>real</i> structure of your SSM, exactly as it is initialized by the Spring context.
+</p>
+
+<h3>Key Features</h3>
+<ul>
+    <li>
+        <b>Interactive Graph Rendering:</b> Automatically transforms states and transitions into an intuitive visual map, making it easy to understand complex business flows at a glance.
+    </li>
+    <li>
+        <b>Flexible Launch Support:</b> Works seamlessly with both <b>local application startups</b> and individual <b>Unit Tests</b>. If a State Machine is created, the visualizer will catch it.
+    </li>
+    <li>
+        <b>Advanced Toolset:</b> A dedicated UI panel provides specialized tools to enhance readability, allowing you to organize, and analyze your structure effectively.
+    </li>
+    <li>
+        <b>Direct DOT Integration:</b> Generates standard <code>.dot</code> files in a local <code>ssmGraph</code> folder, allowing for manual edits and version control of your diagrams.
+    </li>
+</ul>
+  ]]>
+    </description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow
+                id="SSM Graph"
+                anchor="right"
+                icon="/icons/ssm-graph-icon.svg"
+                factoryClass="com.lavr.ssmgraph.ui.SSMGraphToolWindowFactory"
+                doNotActivateOnStart="true"
+                canCloseContents="true"/>
+
+        <runConfigurationExtension implementation="com.lavr.ssmgraph.run.SSMRunConfigurationExtension"/>
+        <fileEditorProvider implementation="com.lavr.ssmgraph.editor.DotSplitEditorProvider"/>
+    </extensions>
+</idea-plugin>
