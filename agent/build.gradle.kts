@@ -1,0 +1,35 @@
+plugins {
+    java
+    id("com.gradleup.shadow") version "8.3.6"
+}
+
+group = "com.lavr.ssmgraphagent"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("net.bytebuddy:byte-buddy:1.15.10")
+    implementation("net.bytebuddy:byte-buddy-agent:1.15.10")
+    compileOnly("org.springframework.statemachine:spring-statemachine-core:4.0.0")
+}
+
+tasks.jar {
+    enabled = false
+}
+
+tasks.shadowJar {
+    archiveFileName.set("agent.jar")
+    archiveClassifier.set("")
+
+    manifest.attributes(
+        "Premain-Class"           to "com.lavr.ssmgraphagent.SSMGraphAgent",
+        "Can-Redefine-Classes"    to "true",
+        "Can-Retransform-Classes" to "true"
+    )
+}
+
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}

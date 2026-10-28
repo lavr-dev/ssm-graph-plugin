@@ -1,0 +1,3 @@
+<!-- Attaches the Web Browser (JCEF) class loader when that plugin is present. -->
+<idea-plugin>
+</idea-plugin>
